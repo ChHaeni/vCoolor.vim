@@ -84,9 +84,6 @@ if !exists("g:vcoolor_lowercase")
 	let g:vcoolor_lowercase = 0
 endif
 " }}}
-" 140 html base colors. {{{1
-let s:colorNames = vcoolor#convert#HtmlBaseColName()
-" }}}
 " Keep track of current working directory of script {{{1
 let s:path = expand('<sfile>:p:h')
 " Get datas related to used OS
@@ -111,6 +108,14 @@ function s:GetCurrCol() " {{{1
     " currentHexColor,
     " typeColor (l: literal, n:none, h:hex, r:rgb, rp:rgb(%), rgba:rgba, hs:hsl)
     " ]
+
+    " R colors or 140 html base colors. 
+    let rtypes = ['r', 'rmd', 'quarto']
+    if index(rtypes, &filetype) != -1
+        let s:colorNames = vcoolor#rcolors#RBuiltinColName()
+    else
+        let s:colorNames = vcoolor#convert#HtmlBaseColName()
+    endif
 
     let l:cWord = expand("<cWORD>")
     let l:cword = tolower(expand("<cword>"))

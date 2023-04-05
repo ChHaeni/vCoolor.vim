@@ -226,7 +226,12 @@ fun! vcoolor#convert#Hex2Lit(hexCol) " {{{1
     " Convert from hex to literal name.
     " #FF0000 => red
 
-	let l:htmlBaseColors = vcoolor#convert#HtmlBaseColName()
+    let rtypes = ['r', 'rmd', 'quarto']
+    if index(rtypes, &filetype) != -1
+        let l:htmlBaseColors = vcoolor#rcolors#RBuiltinColName()
+    else
+        let l:htmlBaseColors = vcoolor#convert#HtmlBaseColName()
+    endif
     let l:colIndex = index(values(l:htmlBaseColors), toupper(a:hexCol))
 
     if l:colIndex != -1
